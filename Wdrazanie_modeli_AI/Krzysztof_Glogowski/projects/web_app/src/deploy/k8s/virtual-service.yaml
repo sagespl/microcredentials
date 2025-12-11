@@ -1,0 +1,31 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: web-app
+  namespace: document-classification
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - web-app-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /document-classification/
+    - uri:
+        prefix: /document-classification
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: document-classification-api.document-classification.svc.cluster.local
+        port:
+          number: 80
+  - match:
+      - uri:
+          prefix: /.well-known/acme-challenge/
+    route:
+      - destination:
+          host: istio-ingressgateway.istio-system.svc.cluster.local
+          port:
+            number: 8080

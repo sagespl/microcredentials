@@ -1,0 +1,32 @@
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: {{ .Values.env}}-document-classification
+  namespace: {{ .Values.env}}-document-classification
+  labels:
+    app: {{ .Values.env}}-document-classification
+spec:
+  selector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - web_app
+          - clamav
+          - valkey
+  componentKinds:
+    - group: deployment
+      kind: Deployment
+    - group: gateway
+      kind: Gateway
+    - group: service
+      kind: Service
+    - group: virtual-service
+      kind: VirtualService
+  descriptor:
+    type: {{ .Values.env}}-document-classification
+    version: {{ .Values.app_version }}
+    description: Document Classification Application
+    links:
+      - description: Source Code
+        url: https://github.com/k-glogowski/document-classification

@@ -1,0 +1,3 @@
+FROM valkey/valkey:8.1.1
+COPY ./projects/web_app/src/deploy/config/valkey.conf /usr/local/etc/valkey/valkey.conf
+CMD [ "valkey-server",  "/usr/local/etc/valkey/valkey.conf"]

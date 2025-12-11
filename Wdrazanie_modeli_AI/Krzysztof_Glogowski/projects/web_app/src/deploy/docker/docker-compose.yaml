@@ -1,0 +1,40 @@
+services:
+  web_app:
+    build:
+      context: ../../../../..
+      dockerfile: projects/web_app/src/deploy/docker/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - DYNACONF_VALKEY_HOST=valkey
+      - DYNACONF_CLAMAV_HOST=clamav
+      - DYNACONF_MODEL_PATH=${MODEL_PATH:-resources/model.pt}
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "localhost:8080/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    depends_on:
+      clamav:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+
+  clamav:
+    image: clamav/clamav:1.4.2
+    ports:
+      - "3310:3310"
+
+  valkey:
+    build:
+      context: ../../../../..
+      dockerfile: projects/web_app/src/deploy/docker/Dockerfile-valkey
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: [ "CMD", "valkey-cli", "ping" ]
+      interval: 5s
+      timeout: 3s
+      retries: 2
+    command: [ "valkey-server", "--appendonly", "yes" ]

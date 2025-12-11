@@ -1,0 +1,31 @@
+# data preprocessing
+dpp_all_pdfs:
+  type: pandas.CSVDataset
+  filepath: projects/ml_pipelines/data/01_raw/pdf/metadata.csv
+
+dpp_all_jpgs:
+  type: pandas.CSVDataset
+  filepath: projects/ml_pipelines/data/05_model_input/jpg/metadata.csv
+
+"dpp_{split_type}":
+  type: pandas.CSVDataset
+  filepath: projects/ml_pipelines/data/05_model_input/jpg/{split_type}.csv
+
+
+# nn training
+"nn_data_{split_type}":
+  type: datasets.ImageSequencesDataset
+  filepath: projects/ml_pipelines/data/05_model_input/jpg/{split_type}.csv
+  label_column: label
+
+init_model_state:
+  type: datasets.OptionalPickleDataset
+  filepath: projects/ml_pipelines/data/06_models/model_state.pkl
+
+trained_model_state:
+  type: pickle.PickleDataset
+  filepath: projects/ml_pipelines/data/06_models/model_state.pkl
+
+trained_model:
+    type: datasets.PyTorchJitDataset
+    filepath: projects/ml_pipelines/data/06_models/model.pt

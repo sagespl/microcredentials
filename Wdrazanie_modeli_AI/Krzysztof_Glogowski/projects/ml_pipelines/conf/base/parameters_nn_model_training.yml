@@ -1,0 +1,48 @@
+# This is a boilerplate parameters config generated for pipeline 'nn_model_training'
+# using Kedro 0.19.13.
+#
+# Documentation for this file format can be found in "Parameters"
+# Link: https://docs.kedro.org/en/0.19.13/configuration/parameters.html
+model:
+  encoder:
+    type: avg
+    backbone: timm/vit_base_patch16_clip_224.openai
+    rnn:
+      hidden_size: 512
+      num_layers: 1
+      dropout: 0.1
+  classification_head:
+    hidden_shape: [16, 8]
+    output_size: 4
+    dropout: 0.1
+
+batch_size: 20
+
+train:
+  transformer:
+    image_size:
+      height: 224
+      width: 224
+    normalization:
+      mean: [ 0.5, 0.5, 0.5 ]
+      std: [ 0.5, 0.5, 0.5 ]
+    gaussian_blur_proba: 0.5
+    random_brightness_contrast_proba: 0.2
+    to_gray_proba: 0.3
+  hyperparameters:
+    epochs: 2
+    stop_metric: LOSS
+    early_stopper:
+      patience: 1
+      min_delta: 0.01
+    optimizer:
+      lr: 0.0001
+
+eval:
+  transformer:
+    image_size:
+      height: 224
+      width: 224
+    normalization:
+      mean: [ 0.5, 0.5, 0.5 ]
+      std: [ 0.5, 0.5, 0.5 ]

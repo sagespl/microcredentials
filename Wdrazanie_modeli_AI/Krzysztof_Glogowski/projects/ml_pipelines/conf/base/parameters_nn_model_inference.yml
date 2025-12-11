@@ -1,0 +1,7 @@
+# This is a boilerplate parameters config generated for pipeline 'nn_model_inference'
+# using Kedro 0.19.13.
+#
+# Documentation for this file format can be found in "Parameters"
+# Link: https://docs.kedro.org/en/0.19.13/configuration/parameters.html
+
+filepath: projects/ml_pipelines/data/01_raw/inference/example_input/type_3.pdf

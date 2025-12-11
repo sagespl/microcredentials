@@ -1,0 +1,5 @@
+project_id   = "ai-ml-467110"
+region       = "europe-central2"
+zone         = "europe-central2-c"
+machine_type = "e2-standard-8"
+node_count   = "1"

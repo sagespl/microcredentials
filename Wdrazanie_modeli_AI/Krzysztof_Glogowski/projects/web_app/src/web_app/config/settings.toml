@@ -1,0 +1,13 @@
+# Valkey settings
+VALKEY_HOST = "localhost"
+VALKEY_PORT = 6379
+
+# Clamd settings:
+CLAMAV_HOST = "localhost"
+CLAMAV_PORT = 3310
+
+# Model settings
+MODEL_PATH = "resources/model.pt"
+
+# API host
+APP_HOST = ""

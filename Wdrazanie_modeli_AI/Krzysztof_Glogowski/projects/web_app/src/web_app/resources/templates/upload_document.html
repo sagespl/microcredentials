@@ -1,0 +1,15 @@
+<body>
+<form id="uploadForm" enctype="multipart/form-data" method="post">
+    <input name="document" type="file" required>
+    <br><br>
+    <button type="submit" onclick="submitForm('{{ APP_HOST }}/v1/predict')">Predict v1</button>
+    <button type="submit" onclick="submitForm('{{ APP_HOST }}/v2/predict')">Predict v2</button>
+</form>
+
+<script>
+    function submitForm(actionUrl) {
+        const form = document.getElementById('uploadForm');
+        form.action = actionUrl;
+    }
+</script>
+</body>

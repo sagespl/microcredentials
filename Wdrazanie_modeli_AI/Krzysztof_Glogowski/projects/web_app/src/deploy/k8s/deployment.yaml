@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: document-classification-api
+  namespace: document-classification
+  labels:
+    app: web_app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web_app
+  template:
+    metadata:
+      namespace: document-classification
+      labels:
+        app: web_app
+    spec:
+      containers:
+        - name: document-classification-api
+          image: europe-central2-docker.pkg.dev/ai-ml-467110/dev-document-classification-docker-repo/web_app:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: web-app-config
+          startupProbe:
+            httpGet:
+              port: 8080
+              path: /health
+            periodSeconds: 1
+            timeoutSeconds: 1
+            failureThreshold: 120
+            successThreshold: 1
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /health
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+            successThreshold: 1
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /readiness
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+            successThreshold: 1
+          resources:
+            requests:
+              memory: 3000Mi
+              cpu: 1000m
+            limits:
+              memory: 4000Mi
+              cpu: 1200m

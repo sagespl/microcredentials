@@ -1,0 +1,136 @@
+[project]
+name = "document-classification"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "albumentations~=2.0.8",
+    "fsspec~=2025.5.1",
+    "gcsfs~=2025.5.1",
+    "numpy~=2.2.6",
+    "pandas~=2.2.3",
+    "pillow~=11.2.1",
+    "pymupdf~=1.26.0",
+    "python-magic~=0.4.27",
+    "timm~=1.0.15",
+]
+
+[dependency-groups]
+dev = [
+    "fakeredis~=2.29.0",
+    "getenv~=0.2.0",
+    "locust~=2.37.14",
+    "pytest~=8.3.5",
+    "pytest-cov~=6.2.1",
+    "pytest-html~=4.1.1",
+    "pytest-mock~=3.14.1",
+]
+lint = [
+    "ruff~=0.11.11",
+]
+research = [
+    "faker~=37.3.0",
+    "flatdict~=4.0.1",
+    "ipython~=8.36.0",
+    "ipywidgets~=8.1.7",
+    "jupyterlab~=4.4.3",
+    "kedro~=0.19.13",
+    "kedro-datasets[pandas-csvdataset,pickle-pickledataset]~=7.0.0",
+    "kedro-viz~=11.0.2",
+    "mlflow~=2.22.0",
+    "reportlab~=4.4.1",
+    "scikit-learn~=1.6.1",
+    "torchmetrics~=1.7.2",
+    "tqdm~=4.67.1",
+    "typer~=0.16.0",
+]
+web-app = [
+    "clamd~=1.0.2",
+    "dynaconf~=3.2.11",
+    "fastapi-versionizer~=4.0.1",
+    "fastapi[standard]~=0.115.12",
+    "jinja2~=3.1.6",
+    "valkey~=6.1.0",
+]
+windows = [
+    "python-magic-bin~=0.4.14",
+]
+
+[project.optional-dependencies]
+cpu = [
+    "torch~=2.7.0",
+    "torchvision~=0.22.0",
+]
+cu126 = [
+    "torch~=2.7.0",
+    "torchvision~=0.22.0",
+]
+
+[tool.uv]
+conflicts = [
+    [
+        { extra = "cpu" },
+        { extra = "cu126" },
+    ],
+]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu", extra = "cpu" },
+    { index = "pytorch-cu126", extra = "cu126" },
+]
+torchvision = [
+    { index = "pytorch-cpu", extra = "cpu" },
+    { index = "pytorch-cu126", extra = "cu126" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
+
+[tool.kedro]
+package_name = "ml_pipelines"
+project_name = "ml_pipelines"
+kedro_init_version = "0.19.13"
+tools = "['Custom Logging', 'Data Structure']"
+example_pipeline = "False"
+source_dir = "projects/ml_pipelines/src"
+
+[tool.kedro_telemetry]
+project_id = "9856b813ae1b497c97a2f2511df97b4e"
+
+[tool.setuptools]
+packages = ["ml_pipelines", "web_app", "common"]
+
+[tool.ruff]
+line-length = 100
+exclude = ["*.ipynb"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/*.py" = ["F401", "F811"]
+
+
+[tool.pytest.ini_options]
+pythonpath = [
+    "projects/web_app/src/web_app",
+    "projects/ml_pipelines/src",
+    "projects/common/src/",
+]
+
+
+[tool.locust]
+locustfile = "projects/web_app/src/tests/load/test_document_classification.py"
+host = "http://localhost:8080"
+users = 3
+spawn-rate = 1
+run-time = "1m"
+headless = false
+loglevel = "INFO"
+html = "load-tests-report.html"

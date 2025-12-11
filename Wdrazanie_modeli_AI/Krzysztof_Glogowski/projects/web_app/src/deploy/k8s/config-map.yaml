@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-app-config
+  namespace: document-classification
+data:
+  DYNACONF_MODEL_PATH: "gs://document-classification-model-storage/model.pt"
+  DYNACONF_VALKEY_HOST: "valkey-service"
+  DYNACONF_CLAMAV_HOST: "clamav-service"
+  DYNACONF_APP_HOST: "document-classification" 
