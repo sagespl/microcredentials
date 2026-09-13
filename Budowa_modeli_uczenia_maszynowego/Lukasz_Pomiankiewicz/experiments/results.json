@@ -1,0 +1,41 @@
+[
+    {
+        "timestamp": "2026-08-06T23:05:40.419871",
+        "model": "Logistic Regression",
+        "params": {},
+        "metrics": {
+            "roc_auc": 0.844974,
+            "f1": 0.600828,
+            "accuracy": 0.805193,
+            "precision": 0.657734,
+            "recall": 0.553211
+        }
+    },
+    {
+        "timestamp": "2026-08-06T23:05:43.278924",
+        "model": "Random Forest",
+        "params": {
+            "n_estimators": 200
+        },
+        "metrics": {
+            "roc_auc": 0.821249,
+            "f1": 0.54382
+        }
+    },
+    {
+        "timestamp": "2026-08-06T23:05:45.782717",
+        "model": "Random Forest Tuned",
+        "params": {
+            "n_estimators": 200,
+            "max_depth": 5,
+            "min_samples_split": 2
+        },
+        "metrics": {
+            "roc_auc": 0.852864,
+            "f1": 0.524046,
+            "accuracy": 0.796309,
+            "precision": 0.689956,
+            "recall": 0.42246
+        }
+    }
+]
