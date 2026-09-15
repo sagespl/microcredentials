@@ -1,0 +1,45 @@
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# --- Virtual environment ---
+.venv/
+
+# --- VS Code ---
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+
+# --- Logs ---
+logs/
+*.log
+
+# --- Test cache ---
+.pytest_cache/
+
+# --- Docker ---
+docker/*.log
+docker/tmp/
+docker/data/
+
+# --- Project data ---
+data/agpw.db
+data/incoming/*
+data/incoming/unknown/*
+data/tmp/*
+
+# --- Executables (blokują GitHub push) ---
+*.exe
+OllamaSetup.exe
+
+# --- System files ---
+Thumbs.db
+desktop.ini
+
+# --- Misc ---
+uv.lock
+Notatki/

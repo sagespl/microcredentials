@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+pandas
+numpy
+openpyxl
+xlrd
+requests
+beautifulsoup4
+lxml
+prometheus-client
+pypdf
+langgraph
+langchain-ollama

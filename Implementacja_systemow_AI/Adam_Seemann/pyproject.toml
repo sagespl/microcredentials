@@ -1,0 +1,26 @@
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+exclude = [
+    ".venv",
+    "data/incoming",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+warn_unused_ignores = false
+exclude = "^(\\.venv|data/incoming|tests)/"
+
+[[tool.mypy.overrides]]
+module = ["numpy.*", "numpy"]
+follow_imports = "skip"
+ignore_errors = true
+
+[tool.bandit]
+exclude_dirs = [".venv", "tests", "data/incoming"]
+skips = ["B101"]
